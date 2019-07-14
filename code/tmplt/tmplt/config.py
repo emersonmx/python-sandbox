@@ -28,7 +28,7 @@ def dumps_json(obj):
 
 def get_default_configs():
     return {
-        'template_path': os.path.join(CONFIG_PATH, 'templates')
+        'templates_path': os.path.join(CONFIG_PATH, 'templates')
     }
 
 
@@ -50,3 +50,7 @@ def get_merged_configs():
 def get_config(config):
     configs = get_merged_configs()
     return configs.get(config)
+
+
+def get_config_templates_path():
+    return get_config('templates_path')
