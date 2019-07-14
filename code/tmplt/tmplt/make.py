@@ -66,9 +66,8 @@ class TemplateBuilder(object):
         self.project_configs = self._get_project_configs()
 
     def _get_project_configs(self):
-        project_filename = _get_project_filename(self.template)
         return json.loads(self.render.render_file(
-            project_filename, **self.configs
+            _get_project_filename(self.template), **self.configs
         ))
 
     def build(self):
@@ -94,18 +93,18 @@ class TemplateBuilder(object):
         os.makedirs(rendered_dirname, exist_ok=True)
 
     def _build_file(self, root, file):
-        project_template_path = _get_project_template_path(self.template)
         absfilepath = os.path.join(root, file)
+        template_filepath = os.path.relpath(
+            absfilepath, get_config_templates_path()
+        )
+        project_template_path = _get_project_template_path(self.template)
         relfile = os.path.relpath(absfilepath, project_template_path)
         rendered_relfile = self.render.render_string(
             relfile, **self.project_configs
         )
-        template_relfile = os.path.relpath(
-            absfilepath, get_config_templates_path()
-        )
         with open(rendered_relfile, 'w+') as f:
             content = self.render.render_file(
-                template_relfile, **self.project_configs
+                template_filepath, **self.project_configs
             )
             f.write(content)
 
