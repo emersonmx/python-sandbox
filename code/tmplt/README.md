@@ -1,3 +1,0 @@
-# tmplt
-
-A template generator
