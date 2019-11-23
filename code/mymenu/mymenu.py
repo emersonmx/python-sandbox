@@ -5,6 +5,39 @@ import gi
 gi.require_version('Gtk', '3.0')
 
 
+class ResultItem(Gtk.ListBoxRow):
+    def __init__(self):
+        super().__init__()
+
+        box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL)
+
+        self.icon = Gtk.Image(stock='gtk-missing-image', icon_size=Gtk.IconSize.DIALOG)
+        self.icon.set_halign(Gtk.Align.START)
+        self.icon.set_valign(Gtk.Align.CENTER)
+        box.pack_start(self.icon, False, False, 0)
+
+        info_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
+        info_box.set_valign(Gtk.Align.CENTER)
+
+        self.title = Gtk.Label('Title')
+        self.title.set_halign(Gtk.Align.START)
+        self.title.set_ellipsize(Pango.EllipsizeMode.END)
+        info_box.pack_start(self.title, True, True, 0)
+
+        self.description = Gtk.Label('The program description')
+        self.description.set_halign(Gtk.Align.START)
+        self.description.set_ellipsize(Pango.EllipsizeMode.END)
+        info_box.pack_start(self.description, True, True, 0)
+
+        box.pack_start(info_box, True, True, 0)
+
+        shortcut = Gtk.Label('Shortcut')
+        shortcut.set_valign(Gtk.Align.CENTER)
+        box.pack_start(shortcut, False, False, 0)
+
+        self.add(box)
+
+
 class MyMenuWindow(Gtk.Window):
     def __init__(self):
         super().__init__(title="MyMenu", resizable=True, decorated=False, default_width=600)
@@ -14,35 +47,15 @@ class MyMenuWindow(Gtk.Window):
         entry = Gtk.Entry()
         main_box.pack_start(entry, True, True, 0)
 
-        result_list = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL)
+        listbox = Gtk.ListBox()
+        listbox.set_selection_mode(Gtk.SelectionMode.NONE)
 
-        icon = Gtk.Image(stock='gtk-about', icon_size=Gtk.IconSize.DIALOG)
-        icon.set_halign(Gtk.Align.START)
-        icon.set_valign(Gtk.Align.CENTER)
-        result_list.pack_start(icon, False, False, 0)
+        listbox.add(ResultItem())
+        listbox.add(ResultItem())
+        listbox.add(ResultItem())
+        listbox.add(ResultItem())
 
-        info_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
-        info_box.set_valign(Gtk.Align.CENTER)
-
-        title = Gtk.Label('Kitty')
-        title.set_halign(Gtk.Align.START)
-        title.set_ellipsize(Pango.EllipsizeMode.END)
-        info_box.pack_start(title, True, True, 0)
-
-        description = Gtk.Label(
-            'A fast, feature full, GPU based terminal emulator'
-        )
-        description.set_halign(Gtk.Align.START)
-        description.set_ellipsize(Pango.EllipsizeMode.END)
-        info_box.pack_start(description, True, True, 0)
-
-        result_list.pack_start(info_box, True, True, 0)
-
-        shortcut = Gtk.Label('Alt+1')
-        shortcut.set_valign(Gtk.Align.CENTER)
-        result_list.pack_start(shortcut, False, False, 0)
-
-        main_box.pack_start(result_list, False, False, 0)
+        main_box.pack_start(listbox, False, False, 0)
 
         self.add(main_box)
 
@@ -56,20 +69,9 @@ def quit_if_esc(w, e):
 
 def main():
     css = b'''
-        window > box > entry {
+        * {
             border-radius: 0px;
             box-shadow: none;
-            background: inherit;
-        }
-        window > box > box {
-        }
-        window > box > box > image {
-        }
-        window > box > box > box {
-        }
-        window > box > box > box > label:first-child {
-        }
-        window > box > box > label {
         }
     '''
 
