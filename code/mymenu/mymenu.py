@@ -40,7 +40,7 @@ class ResultItem(Gtk.ListBoxRow):
 
 class MyMenuWindow(Gtk.Window):
     def __init__(self):
-        super().__init__(title="MyMenu", resizable=True, decorated=False, default_width=600)
+        super().__init__(title="MyMenu", resizable=True, decorated=False, default_width=400)
 
         main_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
 
