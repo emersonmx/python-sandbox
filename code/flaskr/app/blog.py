@@ -11,7 +11,7 @@ bp = Blueprint('blog', __name__)
 
 @bp.route('/')
 def index():
-    posts = Post.query.all()
+    posts = Post.query.order_by(Post.created_at.desc()).all()
     return render_template('blog/index.html', posts=posts)
 
 
