@@ -1,10 +1,9 @@
-import click
-
 from datetime import datetime
-from flask.cli import with_appcontext
 from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate
 
 db = SQLAlchemy()
+migrate = Migrate()
 
 
 class User(db.Model):
@@ -31,24 +30,6 @@ class Post(db.Model):
     body = db.Column(db.Text, nullable=False)
 
 
-@click.command('init-db')
-@with_appcontext
-def init_db_command():
-    '''Create new tables.'''
-    db.create_all()
-    click.echo('Initialized the database.')
-
-
-@click.command('recreate-db')
-@with_appcontext
-def recreate_db_command():
-    '''Recreate new tables.'''
-    db.drop_all()
-    db.create_all()
-    click.echo('Recreated the database.')
-
-
 def init_app(app):
     db.init_app(app)
-    app.cli.add_command(init_db_command)
-    app.cli.add_command(recreate_db_command)
+    migrate.init_app(app, db)
