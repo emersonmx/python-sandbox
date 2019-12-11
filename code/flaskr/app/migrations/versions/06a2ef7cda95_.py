@@ -8,7 +8,6 @@ Create Date: 2019-12-10 21:41:01.965675
 from alembic import op
 import sqlalchemy as sa
 
-
 # revision identifiers, used by Alembic.
 revision = '06a2ef7cda95'
 down_revision = None
@@ -23,8 +22,7 @@ def upgrade():
         sa.Column('id', sa.Integer(), autoincrement=True, nullable=False),
         sa.Column('username', sa.String(length=255), nullable=False),
         sa.Column('password', sa.String(length=255), nullable=False),
-        sa.PrimaryKeyConstraint('id'),
-        sa.UniqueConstraint('username')
+        sa.PrimaryKeyConstraint('id'), sa.UniqueConstraint('username')
     )
     op.create_table(
         'posts',
@@ -34,8 +32,10 @@ def upgrade():
         sa.Column('updated_at', sa.DateTime(), nullable=True),
         sa.Column('title', sa.Text(), nullable=False),
         sa.Column('body', sa.Text(), nullable=False),
-        sa.ForeignKeyConstraint(['author_id'], ['users.id'], ),
-        sa.PrimaryKeyConstraint('id')
+        sa.ForeignKeyConstraint(
+            ['author_id'],
+            ['users.id'],
+        ), sa.PrimaryKeyConstraint('id')
     )
     # ### end Alembic commands ###
 
