@@ -1,3 +1,5 @@
+import os
+
 from datetime import datetime
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
@@ -32,4 +34,4 @@ class Post(db.Model):
 
 def init_app(app):
     db.init_app(app)
-    migrate.init_app(app, db)
+    migrate.init_app(app, db, directory=os.path.join('app', 'migrations'))
