@@ -4,7 +4,10 @@ import os
 def init_app(app, test_config=None):
     app.config.from_mapping(
         SECRET_KEY='dev',
-        DATABASE=os.path.join(app.instance_path, 'flaskr.sqlite')
+        SQLALCHEMY_DATABASE_URI='sqlite:///{}'.format(
+            os.path.join(app.instance_path, 'flaskr.sqlite')
+        ),
+        SQLALCHEMY_TRACK_MODIFICATIONS=False
     )
 
     if test_config is None:

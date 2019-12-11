@@ -7,8 +7,8 @@ def create_app(test_config=None):
     from app import config
     config.init_app(app)
 
-    from app import db
-    db.init_app(app)
+    from app import models
+    models.init_app(app)
 
     from app import auth
     app.register_blueprint(auth.bp)
