@@ -34,4 +34,4 @@ class Post(db.Model):
 
 def init_app(app):
     db.init_app(app)
-    migrate.init_app(app, db, directory=os.path.join('app', 'migrations'))
+    migrate.init_app(app, db)
