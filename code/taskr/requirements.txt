@@ -1,4 +1,5 @@
 Flask==1.1.1
+Flask-Bcrypt==0.7.1
 Flask-Migrate==2.5.2
 Flask-SQLAlchemy==2.4.1
 sqlalchemy-mixins==1.1

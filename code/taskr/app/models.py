@@ -1,7 +1,7 @@
 from sqlalchemy_mixins import AllFeaturesMixin
 
-from app.db import db
-from app.db import mixins
+from app import db
+from app import mixins
 
 
 class User(db.Model, AllFeaturesMixin, mixins.Timestamp):
