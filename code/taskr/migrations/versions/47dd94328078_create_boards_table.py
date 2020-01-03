@@ -1,15 +1,15 @@
 """Create boards table
 
-Revision ID: 0745a5df6f8e
+Revision ID: 47dd94328078
 Revises: 2b475e04e295
-Create Date: 2020-01-03 14:27:46.325390
+Create Date: 2020-01-03 15:05:42.599308
 
 """
 from alembic import op
 import sqlalchemy as sa
 
 # revision identifiers, used by Alembic.
-revision = '0745a5df6f8e'
+revision = '47dd94328078'
 down_revision = '2b475e04e295'
 branch_labels = None
 depends_on = None
@@ -26,14 +26,13 @@ def upgrade():
         sa.PrimaryKeyConstraint('id')
     )
     op.create_table(
-        'board_user', sa.Column('id', sa.Integer(), nullable=False),
-        sa.Column('name', sa.String(length=255), nullable=False),
+        'board_user', sa.Column('name', sa.String(length=255), nullable=False),
         sa.Column('permission', sa.String(length=255), nullable=False),
-        sa.Column('board_id', sa.Integer(), nullable=True),
-        sa.Column('user_id', sa.Integer(), nullable=True),
+        sa.Column('board_id', sa.Integer(), nullable=False),
+        sa.Column('user_id', sa.Integer(), nullable=False),
         sa.ForeignKeyConstraint(['board_id'], ['boards.id']),
         sa.ForeignKeyConstraint(['user_id'], ['users.id']),
-        sa.PrimaryKeyConstraint('id')
+        sa.PrimaryKeyConstraint('board_id', 'user_id')
     )
     # ### end Alembic commands ###
 

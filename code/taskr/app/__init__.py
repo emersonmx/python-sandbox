@@ -22,7 +22,7 @@ def create_app(test_config=None):
     migrate.init_app(app, db)
 
     from app import models
-    user_datastore = SQLAlchemyUserDatastore(db, models.User, models.Role)
+    user_datastore = SQLAlchemyUserDatastore(db, models.User, None)
     security.init_app(app, user_datastore)
 
     return app

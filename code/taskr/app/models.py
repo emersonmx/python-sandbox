@@ -1,4 +1,5 @@
-from flask_security import UserMixin, RoleMixin
+from sqlalchemy.ext.hybrid import hybrid_property
+from flask_security import UserMixin
 from sqlalchemy_mixins import AllFeaturesMixin
 
 from app import db
@@ -9,18 +10,20 @@ class Base(db.Model, AllFeaturesMixin):
     __abstract__ = True
 
 
-class Role(Base, RoleMixin, mixins.Timestamp):
-    __tablename__ = 'roles'
+class BoardUser(Base):
+    __tablename__ = 'board_user'
 
-    id = db.Column(db.Integer(), primary_key=True)
-    name = db.Column(db.String(255), unique=True)
-    description = db.Column(db.String(255))
+    name = db.Column(db.String(255), nullable=False)
+    permission = db.Column(db.String(255), nullable=False)
+    board_id = db.Column(
+        db.Integer(), db.ForeignKey('boards.id'), primary_key=True
+    )
+    user_id = db.Column(
+        db.Integer(), db.ForeignKey('users.id'), primary_key=True
+    )
 
-
-role_user = db.Table(
-    'role_user', db.Column('user_id', db.Integer(), db.ForeignKey('users.id')),
-    db.Column('role_id', db.Integer(), db.ForeignKey('roles.id'))
-)
+    board = db.relationship('Board', back_populates='users')
+    user = db.relationship('User', back_populates='boards')
 
 
 class User(Base, UserMixin, mixins.Timestamp):
@@ -32,14 +35,15 @@ class User(Base, UserMixin, mixins.Timestamp):
     active = db.Column(db.Boolean())
     confirmed_at = db.Column(db.DateTime())
 
-    roles = db.relationship(
-        'Role',
-        secondary=role_user,
-        backref=db.backref('users', lazy='dynamic')
-    )
-    boards = db.relationship(
-        'Board', backref=db.backref('boards', lazy='dynamic')
-    )
+    boards = db.relationship('BoardUser', back_populates='user')
+
+    @hybrid_property
+    def roles(self):
+        return []
+
+    @roles.setter
+    def roles(self, role):
+        pass
 
 
 class Board(Base, mixins.Timestamp, mixins.SoftDelete):
@@ -48,19 +52,4 @@ class Board(Base, mixins.Timestamp, mixins.SoftDelete):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(255), nullable=False)
 
-    users = db.relationship(
-        'User', backref=db.backref('users', lazy='dynamic')
-    )
-
-
-class BoardUser(Base):
-    __tablename__ = 'board_user'
-
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(255), nullable=False)
-    permission = db.Column(db.String(255), nullable=False)
-    board_id = db.Column(db.Integer(), db.ForeignKey('boards.id'))
-    user_id = db.Column(db.Integer(), db.ForeignKey('users.id'))
-
-    board = db.relationship('Board', back_populates='users')
-    user = db.relationship('User', back_populates='boards')
+    users = db.relationship('BoardUser', back_populates='board')
