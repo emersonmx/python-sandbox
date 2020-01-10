@@ -5,7 +5,7 @@ from flask_migrate import Migrate
 
 from flask_security import Security, SQLAlchemyUserDatastore
 
-from app import config
+from taskr import config
 
 db = SQLAlchemy()
 migrate = Migrate()
@@ -21,7 +21,7 @@ def create_app(test_config=None):
     db.init_app(app)
     migrate.init_app(app, db)
 
-    from app import models
+    from taskr import models
     user_datastore = SQLAlchemyUserDatastore(db, models.User, None)
     security.init_app(app, user_datastore)
 

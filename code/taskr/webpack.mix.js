@@ -3,17 +3,17 @@ const mix = require('laravel-mix');
 const purgecss = require('@fullhuman/postcss-purgecss');
 
 mix.disableNotifications();
-mix.setPublicPath('app/static');
+mix.setPublicPath('taskr/static');
 
-mix.js('src/app/main.js', 'app');
-mix.postCss('src/app/main.css', 'app', [
+mix.js('src/taskr/main.js', 'taskr');
+mix.postCss('src/taskr/main.css', 'taskr', [
     require('postcss-import'),
     require('postcss-nested'),
     require('postcss-simple-vars'),
     require('tailwindcss'),
     require('autoprefixer'),
     ...(mix.inProduction()
-        ? [purgecss({ content: ['./dist/**/*.html'] })]
+        ? [purgecss({ content: ['./taskr/templates/**/*.html'] })]
         : []),
 ]);
 

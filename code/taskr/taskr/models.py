@@ -2,8 +2,8 @@ from sqlalchemy.ext.hybrid import hybrid_property
 from flask_security import UserMixin
 from sqlalchemy_mixins import AllFeaturesMixin
 
-from app import db
-from app.sqlalchemy import mixins
+from taskr import db
+from taskr.sqlalchemy import mixins
 
 
 class Base(db.Model, AllFeaturesMixin):
