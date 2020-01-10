@@ -5,8 +5,8 @@ const purgecss = require('@fullhuman/postcss-purgecss');
 mix.disableNotifications();
 mix.setPublicPath('taskr/static');
 
-mix.js('src/taskr/main.js', 'taskr');
-mix.postCss('src/taskr/main.css', 'taskr', [
+mix.js('src/frontend/main.js', 'frontend');
+mix.postCss('src/frontend/main.css', 'frontend', [
     require('postcss-import'),
     require('postcss-nested'),
     require('postcss-simple-vars'),

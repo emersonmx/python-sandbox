@@ -25,6 +25,9 @@ def create_app(test_config=None):
     user_datastore = SQLAlchemyUserDatastore(db, models.User, None)
     security.init_app(app, user_datastore)
 
+    from taskr import jinja2
+    jinja2.init_app(app)
+
     @app.route('/')
     def index():
         from flask import render_template
