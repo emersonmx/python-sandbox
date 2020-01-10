@@ -3,7 +3,7 @@ from flask_security import UserMixin
 from sqlalchemy_mixins import AllFeaturesMixin
 
 from app import db
-from app import mixins
+from app.sqlalchemy import mixins
 
 
 class Base(db.Model, AllFeaturesMixin):
