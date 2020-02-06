@@ -1,0 +1,34 @@
+{
+    "name": "login-flask",
+    "version": "1.0.0",
+    "main": "index.js",
+    "license": "MIT",
+    "private": true,
+    "dependencies": {
+        "tailwindcss": "^1.2.0"
+    },
+    "devDependencies": {
+        "@fullhuman/postcss-purgecss": "^2.0.6",
+        "autoprefixer": "^9.7.4",
+        "cross-env": "^7.0.0",
+        "laravel-mix": "^5.0.1",
+        "postcss-import": "^12.0.1",
+        "postcss-nested": "^4.2.1",
+        "postcss-simple-vars": "^5.0.2",
+        "vue-template-compiler": "^2.6.11"
+    },
+    "browserslist": [
+        "> 0.5%",
+        "last 2 versions",
+        "Firefox ESR",
+        "not dead"
+    ],
+    "scripts": {
+        "dev": "npm run development",
+        "development": "cross-env NODE_ENV=development webpack --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+        "watch": "npm run development -- --watch",
+        "hot": "cross-env NODE_ENV=development webpack-dev-server --inline --hot --config=node_modules/laravel-mix/setup/webpack.config.js",
+        "prod": "npm run production",
+        "production": "cross-env NODE_ENV=production webpack --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
+    }
+}

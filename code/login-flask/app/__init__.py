@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, render_template
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 
@@ -17,8 +17,11 @@ def create_app(test_config=None):
 
     from . import models # noqa
 
+    from . import jinja2
+    jinja2.init_app(app)
+
     @app.route('/')
     def index():
-        return 'Hello world!'
+        return render_template('index.html')
 
     return app
