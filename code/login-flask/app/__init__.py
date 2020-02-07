@@ -1,9 +1,12 @@
 from flask import Flask, render_template
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
+from flask_wtf.csrf import CSRFProtect
 
 db = SQLAlchemy()
 migrate = Migrate()
+
+csrf = CSRFProtect()
 
 
 def create_app(test_config=None):
@@ -15,10 +18,12 @@ def create_app(test_config=None):
     db.init_app(app)
     migrate.init_app(app, db)
 
-    from . import models # noqa
+    from . import models  # noqa
 
     from . import jinja2
     jinja2.init_app(app)
+
+    csrf.init_app(app)
 
     @app.route('/')
     def index():
