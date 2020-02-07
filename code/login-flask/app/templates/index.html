@@ -1,19 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-        <title>Login Flask</title>
+{% extends "base.html" %}
 
-        <link rel="stylesheet" href="{{ mix('/frontend/main.css') }}" />
-    </head>
-    <body>
-        <div class="flex h-screen">
-            <div class="m-auto">
-                <h1 class="text-6xl text-purple-900">Hello world!</h1>
-            </div>
-        </div>
-        <script src="{{ mix('/frontend/main.js') }}"></script>
-    </body>
-</html>
+{% block content %}
+<div class="flex h-screen">
+    <div class="m-auto">
+        <h1 class="text-6xl text-gray-900">Hello world!</h1>
+    </div>
+</div>
+{% endblock %}
