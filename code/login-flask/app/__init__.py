@@ -27,6 +27,8 @@ def create_app(test_config=None):
 
     @app.route('/')
     def index():
-        return render_template('index.html')
+        from .forms import Login
+        form = Login()
+        return render_template('login.html', form=form)
 
     return app
