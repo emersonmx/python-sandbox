@@ -25,10 +25,7 @@ def create_app(test_config=None):
 
     csrf.init_app(app)
 
-    @app.route('/')
-    def index():
-        from .forms import Login
-        form = Login()
-        return render_template('login.html', form=form)
+    from . import routes
+    routes.init_app(app)
 
     return app
