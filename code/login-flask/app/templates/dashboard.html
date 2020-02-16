@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="flex h-screen">
+    <div class="m-auto text-gray-900">
+        {% if current_user.is_authenticated %}
+        <p class="text-4xl">
+            You are logged in!
+        </p>
+        <form action="{{ url_for('logout') }}" method="POST">
+            <input type="hidden" name="csrf_token" value={{ csrf_token() }}>
+            <button type="submit" class="px-4 py-2 text-gray-100 bg-red-500 rounded">Logout</button>
+        </form>
+        {% else %}
+        <p class="text-4xl">
+            You are not logged in...
+            <a href="{{ url_for('login') }}" class="text-blue-500 hover:underline">Login?</a>
+        </p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

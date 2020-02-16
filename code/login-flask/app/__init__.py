@@ -1,12 +1,14 @@
-from flask import Flask, render_template
+from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_wtf.csrf import CSRFProtect
+from flask_login import LoginManager
 
 db = SQLAlchemy()
 migrate = Migrate()
 
 csrf = CSRFProtect()
+login = LoginManager()
 
 
 def create_app(test_config=None):
@@ -24,6 +26,7 @@ def create_app(test_config=None):
     jinja2.init_app(app)
 
     csrf.init_app(app)
+    login.init_app(app)
 
     from . import routes
     routes.init_app(app)
